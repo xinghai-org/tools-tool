@@ -8,24 +8,26 @@
     "dev": "vite",
     "app:dir": "electron-builder --dir",
     "app:dist": "electron-builder",
-    "electron": "electron .",
+    "electron": "vite build && electron .",
     "build": "vite build",
     "preview": "vite preview",
     "format": "prettier --write --experimental-cli src/"
   },
   "build": {
     "appId": "cn.liors.tools-tool",
-    "directories":{
-      "output":"release"
+    "directories": {
+      "output": "release"
     },
     "nsis": {
-      "createDesktopShortcut":"always",
+      "createDesktopShortcut": "always",
       "oneClick": false,
-      "allowToChangeInstallationDirectory":true
+      "allowToChangeInstallationDirectory": true
     }
   },
   "dependencies": {
+    "@tailwindcss/vite": "^4.3.3",
     "pinia": "^4.0.2",
+    "tailwindcss": "^4.3.3",
     "vue": "^3.5.40",
     "vue-router": "^5.2.0"
   },
