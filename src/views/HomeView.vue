@@ -7,6 +7,11 @@ import { RouterView } from 'vue-router';
     Hello world!
 </h1>
 <RouterView></RouterView>
+<div class="columns-3" >
+    <div class="bg-amber-600">a</div>
+    <div class="bg-black" >b</div>
+    <div class="bg-blue-300" >c</div>
+</div>
 </template>
 
 <style scoped>
