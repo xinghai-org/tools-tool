@@ -18,8 +18,10 @@
     "directories": {
       "output": "release"
     },
+    "icon": "dist/logo.svg",
     "nsis": {
       "createDesktopShortcut": "always",
+      "installerIcon": "dist/logo.ico",
       "oneClick": false,
       "allowToChangeInstallationDirectory": true
     }
