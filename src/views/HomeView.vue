@@ -1,9 +1,13 @@
 <script setup>
-import { RouterView } from 'vue-router';
+import { RouterView, useRoute, useRouter } from 'vue-router';
 import HomeIcon from '@/assets/svgs/Home.vue'
 import LogoIcon from '@/assets/svgs/Logo.vue'
 import SettingIcon from '@/assets/svgs/Setting.vue'
 import ToolIcon from '@/assets/svgs/Tool.vue'
+
+const router = useRouter()
+const route = useRoute()
+
 </script>
 
 <template>
@@ -19,23 +23,32 @@ import ToolIcon from '@/assets/svgs/Tool.vue'
 
             <!-- 导航栏 -->
             <nav class="flex flex-col gap-1.5">
-                <div class="flex items-center gap-3 font-medium text-gray-500 w-full px-4 py-2.5 cursor-pointer hover:bg-gray-50 rounded-lg transition-colors" >
-                    <div class="bg-[#4fd1c5] w-8 h-8 flex items-center justify-center rounded-lg" >
+                <div @click="router.push('/home')"
+                    class="flex items-center gap-3 font-medium text-gray-500 w-full px-4 py-2.5 cursor-pointer rounded-lg transition-colors"
+                    :class="route.name === 'home' ? 'bg-gray-100 hover:bg-gray-100' : 'hover:bg-gray-50'">
+                    <div :class="route.name == 'home' ? 'bg-[#4fd1c5]' : 'bg-white'"
+                        class=" w-8 h-8 flex items-center justify-center rounded-lg">
                         <HomeIcon class="w-5 h-5"></HomeIcon>
                     </div>
                     <span class="select-none">主页</span>
                 </div>
-                <div class="flex items-center gap-3 font-medium text-gray-500 w-full px-4 py-2.5 cursor-pointer hover:bg-gray-50 rounded-lg transition-colors" >
-                    <div class="bg-[#4fd1c5] w-8 h-8 flex items-center justify-center rounded-lg" >
+                <div @click="router.push('/tools')"
+                    class="flex items-center gap-3 font-medium text-gray-500 w-full px-4 py-2.5 cursor-pointer rounded-lg transition-colors"
+                    :class="route.name === 'tools' ? 'bg-gray-100 hover:bg-gray-100' : 'hover:bg-gray-50'">
+                    <div :class="route.name == 'tools' ? 'bg-[#4fd1c5]' : 'bg-white'"
+                        class=" w-8 h-8 flex items-center justify-center rounded-lg">
                         <ToolIcon class="w-5 h-5"></ToolIcon>
                     </div>
-                    <span class="select-none" >工具</span>
+                    <span class="select-none">工具</span>
                 </div>
-                <div class="flex items-center gap-3 font-medium text-gray-500 w-full px-4 py-2.5 cursor-pointer hover:bg-gray-50 rounded-lg transition-colors" >
-                    <div class="bg-[#4fd1c5] w-8 h-8 flex items-center justify-center rounded-lg" >
+                <div @click="router.push('/settings')"
+                    class="flex items-center gap-3 font-medium text-gray-500 w-full px-4 py-2.5 cursor-pointer rounded-lg transition-colors"
+                    :class="route.name === 'settings' ? 'bg-gray-100 hover:bg-gray-100' : 'hover:bg-gray-50'">
+                    <div :class="route.name == 'settings' ? 'bg-[#4fd1c5]' : 'bg-white'"
+                        class=" w-8 h-8 flex items-center justify-center rounded-lg">
                         <SettingIcon class="w-5 h-5"></SettingIcon>
                     </div>
-                    <span class="select-none" >设置</span>
+                    <span class="select-none">设置</span>
                 </div>
             </nav>
         </div>
