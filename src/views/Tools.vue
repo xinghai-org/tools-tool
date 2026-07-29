@@ -1,3 +1,7 @@
+<script setup>
+
+</script>
+
 <template>
-    <h1>My Tools</h1>
+    <RouterView></RouterView>
 </template>

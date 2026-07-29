@@ -1,3 +1,9 @@
+<script setup>
+
+</script>
+
 <template>
-    <h1>Home</h1>
+    <div class="bg-black px-20 py-4" >
+        <div class="text-white w-10 h-10">abc</div>
+    </div>
 </template>

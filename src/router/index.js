@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import ToolsRouterList from '@/router/toolsRouter.js'
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -7,21 +7,24 @@ const router = createRouter({
     {
       path: '/',
       name: 'root',
-      component: HomeView,
+      component: () => import("../views/HomeView.vue"),
       children: [
         {
-          path:'/',
-          redirect:'/home'
+          path: '/',
+          redirect: '/home'
         },
         {
-          path:'/home',
-          name:'home',
-          component:()=> import("../views/Home.vue")
+          path: '/home',
+          name: 'home',
+          component: () => import("../views/Home.vue")
         },
         {
           path: '/tools',
           name: 'tools',
-          component: () => import("../views/Tools.vue")
+          component: () => import("../views/Tools.vue"),
+          children: [
+            ...ToolsRouterList
+          ]
         },
         {
           path: '/settings',
