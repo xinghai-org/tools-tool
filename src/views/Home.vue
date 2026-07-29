@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <div class="bg-black px-20 py-4" >
-        <div class="text-white w-10 h-10">abc</div>
+    <div class=" px-20 py-4" >
+        <div class=" w-10 h-10">v0.0.2</div>
     </div>
 </template>
