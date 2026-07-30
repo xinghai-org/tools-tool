@@ -3,5 +3,5 @@
 </script>
 
 <template>
-    <RouterView></RouterView>
+    <RouterView ></RouterView>
 </template>

@@ -2,6 +2,7 @@ import { app, BrowserWindow, dialog, ipcMain } from "electron"
 import path from "path"
 import { fileURLToPath } from "url"
 import './js/function.js'
+import { taskManager } from "./js/taskManager.js"
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 let win;
@@ -31,6 +32,11 @@ ipcMain.handle('select-folder', async () => {
   } else {
     return result.filePaths[0]
   }
+})
+
+ipcMain.handle("stopTask", async (event, uuid) => {
+  console.log("后端停止")
+  taskManager.stopTask(uuid)
 })
 
 app.whenReady().then(() => {
