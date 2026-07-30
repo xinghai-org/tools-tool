@@ -1,4 +1,8 @@
 import { app, BrowserWindow, dialog, ipcMain } from "electron"
+import path from "path"
+import { fileURLToPath } from "url"
+import './js/function.js'
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 let win;
 
@@ -9,7 +13,7 @@ const createWindow = () => {
     autoHideMenuBar: true,
     icon: '/logo.png',
     webPreferences: {
-      preload:'E:\\Project\\tools-tool\\src\\electron\\preload\\index.cjs'
+      preload: path.join(__dirname, 'preload', 'index.cjs')
     }
   })
 
