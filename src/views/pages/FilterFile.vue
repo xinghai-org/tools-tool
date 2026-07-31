@@ -10,7 +10,8 @@ const LineData = ref({})
 const isChangeNewFile = ref(true)
 const isRuingCopy = ref(false)
 const uuid = crypto.randomUUID()
-
+const copyType = ref('move')
+const runType = ref('move')
 // 停止复制复位函数
 function stopCopy() {
     console.log("复位了")
@@ -38,15 +39,15 @@ const copyFile = async () => {
     }
 
     if (!sourcePath.value || !targetPath.value || !countList.value) {
-
         return
     }
     isRuingCopy.value = true
     LineData.value = {}
     isChangeNewFile.value = false
     console.log("启动运行")
+    runType.value = copyType.value == 'move' ? "移动" : "复制"
     if (!window.electronAPI) { console.log("浏览器环境，没有electronAPI"); return }
-    const result = await window.electronAPI.copyFile(uuid, [...countList.value], sourcePath.value, targetPath.value)
+    const result = await window.electronAPI.copyFile(uuid, [...countList.value], sourcePath.value, targetPath.value, copyType.value)
     if (!result) { }
     console.log(result)
 }
@@ -56,7 +57,7 @@ let stoplineListen
 if (window.electronSent) {
     stoplineListen = window.electronSent.onCopyFile((data) => {
         LineData.value = data
-        if (data.status == 'ok'){stopCopy()}
+        if (['ok','error'].includes(data.status)) { stopCopy() }
     })
 }
 
@@ -137,13 +138,24 @@ watch(File, (newFile) => {
                     </div>
                 </div>
                 <div class="w-40 h-35  flex flex-col items-center">
-                    <div @click="copyFile()" :class="!sourcePath || !targetPath || !countList.length ? 'validatorF' : ''"
+                    <div @click="copyFile()"
+                        :class="!sourcePath || !targetPath || !countList.length ? 'validatorF' : ''"
                         class="mt-4  text-white select-none hover:bg-[#4fd1c5] active:shadow-inner transition-all cursor-pointer bg-[#4fd1c5]/90 shadow w-20 h-9 rounded flex items-center justify-center font-medium">
                         {{ isRuingCopy ? '取消' : '开始' }}</div>
+                    <div class=" w-20 flex flex-col gap-4 mt-8">
+                        <label for="type1" class="flex items-center w-20 h-6 gap-2" >
+                            <input value="move" v-model="copyType" id="type1" name="type" type="radio" class="appearance-none w-4 h-4 ring-1 border-2 border-white   ring-gray-400 rounded checked:bg-[#4fd1c5] " checked />
+                            <span class="text-gray-400 font-bold text-[16px]">移动</span>
+                        </label>
+                        <label for="type2" class="flex items-center w-20 h-6 gap-2" >
+                            <input value="copy" v-model="copyType" id="type2" name="type" type="radio" class="appearance-none w-4 h-4 ring-2 border-2 border-white   ring-gray-300 rounded checked:bg-[#4fd1c5] " />
+                            <span class="text-gray-400 font-bold text-[16px]">复制</span>
+                        </label>
+                    </div>
                 </div>
                 <span v-if="!isChangeNewFile" class="absolute bottom-1 left-1 text-[9px] text-black/40">
                     <template v-if="LineData.status === 'copying'">
-                        正在复制：{{ LineData.path }}
+                        正在{{ runType }}：{{ LineData.path }}
                     </template>
 
                     <template v-else-if="LineData.status === 'ok'">
