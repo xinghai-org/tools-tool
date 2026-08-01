@@ -22,7 +22,7 @@ function stopCopy() {
 // 选择路径
 const selectFolder = async (path) => {
     if (!window.electronAPI) { console.log("浏览器环境，没有electronAPI"); return }
-    await window.electronAPI.selectFolder()
+    await window.electronAPI.selectFolder('Folder')
     if (path == 'sourcePath') {
         sourcePath.value = result
     } else {

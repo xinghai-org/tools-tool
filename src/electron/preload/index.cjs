@@ -1,8 +1,8 @@
 const { contextBridge, ipcRenderer } = require('electron')
 
 contextBridge.exposeInMainWorld('electronAPI', {
-  selectFolder() {
-    return ipcRenderer.invoke('select-folder')
+  selectFolder(fileType='File') {
+    return ipcRenderer.invoke('select-folder',fileType)
   },
   copyFile(uuid, fileNameList, sourcePath, targetPath, type) {
     return ipcRenderer.invoke('copyFile', uuid, fileNameList, sourcePath, targetPath, type)
