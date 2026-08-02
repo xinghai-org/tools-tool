@@ -7,33 +7,30 @@ const router = createRouter({
     {
       path: '/',
       name: 'root',
-      component: () => import("../views/HomeView.vue"),
+      component: () => import('../views/HomeView.vue'),
       children: [
         {
           path: '/',
-          redirect: '/home'
+          redirect: '/home',
         },
         {
           path: '/home',
           name: 'home',
-          component: () => import("../views/Home.vue")
+          component: () => import('../views/Home.vue'),
         },
         {
           path: '/tools',
           name: 'tools',
-          component: () => import("../views/Tools.vue"),
-          children: [
-            ...ToolsRouterList
-          ]
+          component: () => import('../views/Tools.vue'),
+          children: [...ToolsRouterList],
         },
         {
           path: '/settings',
           name: 'settings',
-          component: () => import("../views/Settings.vue")
+          component: () => import('../views/Settings.vue'),
         },
-      ]
+      ],
     },
-
   ],
 })
 

@@ -1,1 +1,18 @@
 @import "tailwindcss";
+
+@theme {
+  /* 主色 (100%) */
+  --color-primary: #4fd1c5;
+  
+  /* 色阶：10% 到 100% */
+  --color-primary-10: #e6f7f5;
+  --color-primary-20: #ccefeb;
+  --color-primary-30: #b3e6e1;
+  --color-primary-40: #99ded7;
+  --color-primary-50: #80d6cd;
+  --color-primary-60: #66cec3;
+  --color-primary-70: #4dc6b9;
+  --color-primary-80: #33beaf;
+  --color-primary-90: #1ab6a5;
+  --color-primary-100: #4fd1c5;  /* 主色 */
+}
