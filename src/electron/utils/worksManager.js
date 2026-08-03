@@ -16,7 +16,7 @@ let activeWorks = [
 ];
 
 export const worksManager = {
-    async addTask(pageName, workID, call, data = {}) {
+    async addWork(pageName, workID, call, data = {}) {
         // 包装成Promise
         const callback = () => {
             Promise.resolve(call());
@@ -44,6 +44,7 @@ export const worksManager = {
         activeWorks = activeWorks.filter((item) => item.workID != workID);
     },
     async getWorks(page) {
+        console.log("进来了",page, activeWorks)
         return activeWorks
             .filter((item) => (item.pageName = page))
             .map(({ callback, ...res }) => res);

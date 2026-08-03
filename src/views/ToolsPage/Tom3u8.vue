@@ -34,7 +34,7 @@ onMounted(async () => {
             const func = await window.electronIPC.addListen(
                 item.workID,
                 (event, data) => {
-                    console.log(data);
+                    console.log("emit信息", data);
                 },
             );
             removeListenList.push(func);
@@ -46,11 +46,12 @@ onMounted(async () => {
 onUnmounted(async () => {
     if (window.electronAPI) {
         log.info(await window.electronIPC.eventName());
+        console.log("退出", removeListenList)
         for (let func of removeListenList) {
-            console.log(func)
             await func();
         }
         console.log("退出");
+        log.info(await window.electronIPC.eventName());
     }
 });
 
@@ -69,9 +70,11 @@ async function segment() {
         targetPath: targetPath.value,
     })
     workID.value = id
+    console.log(id, result)
     // 监听
+    console.log("监听",id)
     const func = await window.electronIPC.addListen(id, (event, data) => {
-        log.info(data)
+        console.log(`监听输出的： ${data}`)
     })
     removeListenList.push(func)
     window.electronAPI.worksManager(
@@ -79,6 +82,7 @@ async function segment() {
         route.name,
     );
     if (result) log.info(result);
+    await result
 }
 </script>
 

@@ -6,5 +6,5 @@ export default async (data, pageName = router.currentRoute.value.name, workID = 
         Logger.info("浏览器环境没有electronAPI")
         console.log("浏览器环境没有electronAPI")
     }
-    return window.electronAPI.systemApp("addWork", { pageName: pageName, workID: workID, ...data }), workID
+    return [window.electronAPI.systemApp("addWork", { pageName: pageName, workID: workID, ...data }), workID]
 }

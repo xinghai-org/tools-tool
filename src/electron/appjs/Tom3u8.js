@@ -7,7 +7,7 @@ import Logger from "electron-log/main";
 import { once } from "events";
 import ffmpeg from "ffmpeg-static";
 
-export default async ({event, workID, sourcePath, targetPath}) => {
+export default async ({pageName, event, workID, sourcePath, targetPath}) => {
     console.log(event,workID, sourcePath,targetPath)
     // 判断路径
     for (let path of [sourcePath, targetPath]) {
@@ -52,28 +52,31 @@ export default async ({event, workID, sourcePath, targetPath}) => {
             "-f",
             "segment",
             "-segment_time",
-            " 10",
+            "10",
             "-segment_list",
             path.join(targetPath, file.slice(0, 14), "playlist.m3u8"),
             path.join(targetPath, file.slice(0, 14), "output%5d.ts"),
         ]);
-        await worksManager.addTask(workID, () => {
+        await worksManager.addWork(pageName, workID, () => {
+            console.log("停止了")
             dir.kill();
-        });
+        },{});
         dir.stderr.on("data", (data) => {
-            Logger.info(data.toString("utf8"));
+            event.sender.send(workID,data.toString("utf8"));
         });
         dir.stdout.on("data", (data) => {
-            Logger.info(data.toString("utf8"));
+            event.sender.send(workID,data.toString("utf8"));
         });
-
         dir.on("error", (err) => {
             Logger.error(`进程启动异常，错误： ${err}`);
         });
-
-        const [code] = await once(dir, "close");
+        const [code, signal] = await once(dir, "close");
         if (code == 0){
-            Logger.info("成功")
+            Logger.info(`成功：${file}，退出码：${code}，信号：${signal}`)
+        }else{
+            Logger.error(
+            `处理失败：${file}，退出码：${code}，信号：${signal}`
+        );
         }
     }
     worksManager.stopWork(workID);
