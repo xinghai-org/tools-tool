@@ -1,7 +1,7 @@
 import { app, BrowserWindow, dialog, ipcMain } from "electron";
 import path from "path";
 import { fileURLToPath } from "url";
-import "./appjs/function.js";
+import "./function.js";
 import "./hadleAPI.js"
 import { worksManager } from "./utils/worksManager.js";
 import log from "electron-log/main";

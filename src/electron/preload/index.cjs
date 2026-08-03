@@ -1,4 +1,4 @@
-const { contextBridge, ipcRenderer } = require("electron");
+const { contextBridge, ipcRenderer, IpcMainServiceWorker } = require("electron");
 
 contextBridge.exposeInMainWorld("electronAPI", {
     selectFolder(openFile = "openFile") {
@@ -25,6 +25,9 @@ contextBridge.exposeInMainWorld("electronAPI", {
     worksManager(action, data) {
         return ipcRenderer.invoke("worksManager", action, data);
     },
+    systemApp(action, data){
+        return ipcRenderer.invoke("system:app", action, data)
+    }
 });
 
 contextBridge.exposeInMainWorld("electronIPC", {

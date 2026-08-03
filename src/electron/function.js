@@ -1,7 +1,7 @@
 import { ipcMain } from "electron";
 import fs from "fs";
 import path from "path";
-import { worksManager } from "../utils/worksManager.js";
+import { worksManager } from "./utils/worksManager.js";
 import { spawn, spawnSync } from "child_process";
 import Logger from "electron-log/main";
 import { once } from "events";
@@ -153,6 +153,6 @@ ipcMain.handle("segment", async (event, uuid, sourcePath, targetPath) => {
 
     const [code] = await once(dir, "close");
     Logger.info(code);
-    worksManager.stopTask(uuid);
+    worksManager.stopWork(uuid);
     return "ok";
 });
