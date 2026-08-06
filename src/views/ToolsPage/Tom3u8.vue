@@ -25,11 +25,13 @@ function clearInput() {
 // 启动监听
 onMounted(async () => {
     if (window.electronAPI) {
+        // 获取这个软件的所有进程
         const result = await window.electronAPI.worksManager(
             "getWorks",
             route.name,
         );
         log.info(result);
+        // 监听所有进程，并打印信息
         for (let item of result) {
             const func = await window.electronIPC.addListen(
                 item.workID,
@@ -46,11 +48,9 @@ onMounted(async () => {
 onUnmounted(async () => {
     if (window.electronAPI) {
         log.info(await window.electronIPC.eventName());
-        console.log("退出", removeListenList)
         for (let func of removeListenList) {
             await func();
         }
-        console.log("退出");
         log.info(await window.electronIPC.eventName());
     }
 });
@@ -74,6 +74,7 @@ async function segment() {
     // 监听
     console.log("监听",id)
     const func = await window.electronIPC.addListen(id, (event, data) => {
+        
         console.log(`监听输出的： ${data}`)
     })
     removeListenList.push(func)
